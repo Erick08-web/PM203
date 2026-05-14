@@ -1,0 +1,4 @@
+Let: Se utiliza para definir una variable, cuyo vlaor puede cambiar durante la ejecucion del codigo,
+const: se utiliza para declarar variables constantes, es decir, valores que no cambiarán después de ser asignados.
+funciones: son bloques de cosido que unicamente realizan una funcion en especifico y se pueden reutilizar
+array: son arreglos que funcionan como una especie de tabla, puede ser utilizada para listar los productos 
