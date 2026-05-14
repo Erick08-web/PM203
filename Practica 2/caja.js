@@ -2,16 +2,13 @@ import { catalogo } from "./cocina";
 
 const { catalogo, buscarProducto } = require("./cocina");
 
-// Lista de pedidos (array que irá creciendo)
 let pedidos = [];
 
-// Total acumulado de ventas
 let totalAcumulado = 0;
 
-// Contador de pedidos para generar IDs
 let contadorPedidos = 0;
 
-// Función principal: agregar un pedido
+//agregar un pedido
 function agregarPedido(nombreCliente, productosIds) {
     contadorPedidos++;
 
@@ -30,7 +27,6 @@ function agregarPedido(nombreCliente, productosIds) {
         }
     }
 
-    // Crear el objeto del pedido
     const nuevoPedido = {
         numeroPedido: contadorPedidos,
         cliente: nombreCliente,
@@ -39,30 +35,25 @@ function agregarPedido(nombreCliente, productosIds) {
         fecha: new Date().toLocaleString()
     };
 
-    // Agregar a la lista de pedidos
     pedidos.push(nuevoPedido);
 
-    // Actualizar total acumulado
+    // Total acumulado
     totalAcumulado = totalAcumulado + subtotal;
 
     return nuevoPedido;
 }
 
-// Función para ver todos los pedidos
 function verPedidos() {
     return pedidos;
 }
 
-// Función para obtener el total acumulado
 function obtenerTotal() {
     return totalAcumulado;
 }
 
-// Función para ver resumen de un pedido específico
 function verResumenPedido(numeroPedido) {
     const pedido = pedidos.find(p => p.numeroPedido === numeroPedido);
     return pedido;
 }
 
-// Exportar para usar en otros módulos
 module.exports = { agregarPedido, verPedidos, obtenerTotal, verResumenPedido };
