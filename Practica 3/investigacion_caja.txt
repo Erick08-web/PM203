@@ -1,0 +1,90 @@
+Módulo 01 — Caja 
+reduce()
+¿Qué es? reduce() es un método de los arrays en JavaScript que recorre todos los elementos y los va "reduciendo" a un solo valor acumulado. Es ideal para sumar totales, contar elementos, agrupar datos, etc.
+
+Sintaxis:
+
+
+array.reduce((acumulador, elementoActual) => {
+    // lógica de acumulación
+    return nuevoAcumulador;
+}, valorInicial);
+Parámetro	Descripción
+acumulador	El valor que se va acumulando en cada iteración
+elementoActual	El elemento actual del array que se está procesando
+valorInicial	El valor con el que inicia el acumulador (usualmente 0 para sumas)
+Ejemplo genérico:
+
+
+const numeros = [10, 20, 30, 40];
+const suma = numeros.reduce((acum, num) => acum + num, 0);
+console.log(suma); // 100
+Ejemplo aplicado a CoffeeCode:
+
+
+// Calcular el subtotal de los productos de un pedido
+const productosDelPedido = [
+    { nombre: "Americano", precio: 45 },
+    { nombre: "Croissant", precio: 40 },
+    { nombre: "Latte", precio: 60 }
+];
+const subtotal = productosDelPedido.reduce((acum, producto) => acum + producto.precio, 0);
+console.log(subtotal); // 145
+TIP
+
+reduce() reemplaza el patrón manual de usar un for con una variable acumuladora. Es más limpio y funcional.
+
+destructuring (Desestructuración)
+¿Qué es? La desestructuración es una sintaxis de JavaScript que permite extraer valores de objetos o arrays y asignarlos a variables individuales de forma directa y limpia, sin tener que acceder a cada propiedad manualmente.
+
+Sintaxis con objetos:
+
+
+const { propiedad1, propiedad2 } = objeto;
+Sintaxis con arrays:
+
+
+const [elemento1, elemento2] = array;
+Ejemplo genérico con objetos:
+
+
+const persona = { nombre: "Ana", edad: 25, ciudad: "Puebla" };
+// Sin destructuring:
+const nombre = persona.nombre;
+const edad = persona.edad;
+// Con destructuring (es lo mismo, pero más limpio):
+const { nombre, edad, ciudad } = persona;
+console.log(nombre); // "Ana"
+console.log(edad);   // 25
+Ejemplo genérico con arrays:
+
+
+const colores = ["rojo", "verde", "azul"];
+const [primero, segundo] = colores;
+console.log(primero); // "rojo"
+console.log(segundo); // "verde"
+Ejemplo aplicado a CoffeeCode:
+
+
+// Desestructurar un pedido para acceder rápidamente a sus propiedades
+const pedido = {
+    numeroPedido: 1,
+    cliente: "Daniel",
+    subtotal: 145,
+    iva: 23.20,
+    total: 168.20
+};
+const { cliente, subtotal, iva, total } = pedido;
+console.log(`Cliente: ${cliente}`);
+console.log(`Subtotal: $${subtotal} | IVA: $${iva} | Total: $${total}`);
+Destructuring en parámetros de funciones:
+
+
+// En lugar de recibir el objeto completo y acceder con punto:
+function mostrarTicket({ cliente, subtotal, iva, total }) {
+    console.log(` ${cliente}`);
+    console.log(` Subtotal: $${subtotal} | IVA: $${iva} | Total: $${total}`);
+}
+TIP
+
+El destructuring también se usa mucho en require: const { catalogo, buscarProducto } = require("./cocina"); — ¡ya lo estás usando en tu proyecto!
