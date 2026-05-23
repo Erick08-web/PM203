@@ -1,0 +1,2 @@
+callback en pocas palabras es una funcion que se que se pasa como paramatreo a otra 
+funcion para que pueda ejecutarse despues.
