@@ -1,3 +1,4 @@
+/* Saludo 2*/
 
 import{ Button, Image, Text, View } from "react-native";
 

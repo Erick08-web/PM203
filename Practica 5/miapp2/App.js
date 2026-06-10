@@ -8,7 +8,7 @@ import { Perfil } from './components/Perfil';
 
 
 
-/* Zona 2: Main - Hogar de los componentes */
+/* Zona 2: Main - Hogar de los componentess */
 export default function App() {
   return (
     <View style={styles.container}>

@@ -1,3 +1,4 @@
+/* Saludo */
 
 import{ Button } from "react-native";
 
