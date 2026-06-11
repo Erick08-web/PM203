@@ -1,14 +1,26 @@
 /* Perfil */
 
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
+import React, { useState } from 'react';
 
-export const Perfil = () => {
-    return(
+export const Perfil = ({ nombre, carrera, materia, cuatri }) => {
+    const [mostrar, setMostrar] = useState(false);
+    return (
         <View>
-            <Text>Nombre: Erick Alvarez Balderas</Text>
-            <Text>Carrera: Ingeniería en Sistemas</Text>
-            <Text>Materia: Programación Movil</Text>
-            <Text>Cuatrimestre: Noveno</Text>
+            <Text>{nombre}</Text>
+
+            {/* Renderizado condicional  */}
+            {mostrar &&
+                <>
+                    <View>
+                        <Text>{carrera}</Text>
+                        <Text>{materia}</Text>
+                        <Text>{cuatri}</Text>
+                    </View>
+                </>
+            }
+
+            <Button title="Mostrar perfil" onPress={() => setMostrar(!mostrar)} />
         </View>
     )
 }
