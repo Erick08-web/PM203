@@ -33,8 +33,6 @@ export default function App() {
       <Perfil nombre="Erick Alvarez" carrera="Sistemas" materia="Programación movil" cuatri="Noveno"></Perfil>
 
 
-      <Text>------------------------------------------------------------</Text>
-      <Text>------------------------------------------------------------</Text>
 
 
 
