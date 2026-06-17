@@ -1,40 +1,42 @@
 /* Perfil */
 
-import { Text, View, Button, StyleSheet } from "react-native";
 import React, { useState } from 'react';
+import { Text, View, Button, StyleSheet } from 'react-native';
 
-export const Perfil = ({ nombre, carrera, materia, cuatri }) => {
+export const Perfil = ({ nombre, carrera, materia, cuatri, estiloEXT }) => {
     const [mostrar, setMostrar] = useState(false);
+
     return (
-        <View Styles={styles.tarjeta}>
-            <Text Style={styles.nombre} >{nombre}</Text>
+        <View style={[styles.tarjeta, estiloEXT]}>
+            <Text style={styles.nombre}>{nombre}</Text>
 
-            {/* Renderizado condicional  */}
-            {mostrar &&
-                <>
-                    <View>
-                        <Text Style={styles.carrera}>{carrera}</Text>
-                        <Text Style={styles.otroTexto}>{materia}</Text>
-                        <Text Style={styles.otroTexto}>{cuatri}</Text>
-                    </View>
-                </>
-            }
+            {/* Renderizado condicional */}
+            {mostrar && (
+                <View>
+                    <Text style={styles.carrera}>{carrera}</Text>
+                    <Text style={styles.otroTexto}>{materia}</Text>
+                    <Text style={styles.otroTexto}>{cuatri}</Text>
+                </View>
+            )}
 
-            <Button title="Mostrar perfil" onPress={() => setMostrar(!mostrar)} />
+            <Button
+                title={mostrar ? "Ocultar perfil" : "Mostrar perfil"}
+                onPress={() => setMostrar(!mostrar)}
+            />
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     nombre: {
         fontSize: 24,
-        fontWeight: 600,
+        fontWeight: '600',
         textTransform: 'uppercase',
     },
     carrera: {
         fontSize: 18,
         color: 'blue',
-        fonFamily: 'Roboto',
+        fontFamily: 'Roboto',
     },
     otroTexto: {
         fontSize: 12,
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     },
     tarjeta: {
         borderWidth: 2,
-        Padding: 25,
+        padding: 25,
         margin: 15,
     },
 });
