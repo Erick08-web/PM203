@@ -1,10 +1,8 @@
 /* Zona 1 : Importaciones de Componentes y archivos*/
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Saludo } from './components/Saludo';
-import { Saludo2 } from './components/Saludo2';
-import { Perfil } from './components/Perfil';
+import { StyleSheet, Text, View } from 'react-native';
+import MenuScreen from './screens/MenuScreen';
 
 
 
@@ -14,40 +12,7 @@ export default function App() {
     <View style={styles.container}>
 
 
-      {/* <Image source={require('./assets/wave.png')} />
-
-      <Text>----------------- Componentes Nativos--------------</Text>
-
-      <Text>Open up App.js to start working on your app!</Text>
-
-      <Text>----------------- Componentes Propio Simple--------------</Text>
-
-      <Saludo></Saludo>
-
-      <Text>----------------- Componentes Propio Compuesto --------------</Text>
-
-      <Saludo2></Saludo2>
- */}
-      <Text>----------------- Perfil--------------</Text>
-
-      <Perfil estiloEXT={styles.tarjetaRoja} nombre="Erick Alvarez" carrera="Sistemas" materia="Programación movil" cuatri="Noveno"></Perfil>
-
-
-
-
-
-      <Perfil
-
-        estiloEXT={styles.tarjetaverde}
-        nombre="Erick Alvarez"
-        carrera="Sistemas"
-        materia="Programación movil"
-        cuatri="Noveno"
-
-      />
-
-      <Perfil estiloEXT={styles.tarjetaRoja} nombre="Erick Alvarez 2" carrera="Sistemas" materia="Programación movil" cuatri="Noveno"></Perfil>
-
+      <MenuScreen />
       <StatusBar style="auto" />
     </View>
   );
@@ -58,12 +23,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
 
   },
 
-  tarjetaRoja: { backgroundColor: '#FF6B6B' },
-  tarjetaverde: { backgroundColor: '#6BCB77' },
 });
