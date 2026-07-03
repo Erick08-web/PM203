@@ -54,8 +54,8 @@ export default function MenuScreen() {
                     <Button title="Practica: Pressable" onPress={() => setScreen('pressable')} />
                     <Button title="Practica: TextInput" onPress={() => setScreen('textinput')} />
                     <Button title="Practica: FlatList" onPress={() => setScreen('flatlist')} />
-                    <Button title="Practica: ImageBackground" onPress={() => setScreen('imageBackground')} />
-                    <Button title="Practica: ActivityIndicator" onPress={() => setScreen('activityIndicator')} />
+                    <Button title="Practica: ImageBackground" onPress={() => setScreen('imagebackground')} />
+                    <Button title="Practica: ActivityIndicator" onPress={() => setScreen('activityindicator')} />
                     <Button title="Practica: Modal" onPress={() => setScreen('modal')} />
 
 
