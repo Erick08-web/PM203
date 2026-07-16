@@ -1,8 +1,7 @@
 {
   "expo": {
-    "name": "miapp2",
-    "slug": "miapp2",
-    "scheme": "repa2",
+    "name": "examen2dop",
+    "slug": "examen2dop",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
