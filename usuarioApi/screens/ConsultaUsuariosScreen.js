@@ -1,16 +1,28 @@
-import React from 'react';
-import {SafeAreaView,View,Text,FlatList,StyleSheet,
+import React, { useState, useEffect } from 'react';
+import {
+  View, Text, FlatList, StyleSheet, Pressable,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
+import { API_URL } from '../config/api';
 
 export default function ConsultaUsuariosScreen() {
 
-  const usuarios = [
-    { id: '1', nombre: 'Isay Guerra', edad: 22 },
-    { id: '2', nombre: 'Ana López', edad: 19 },
-    { id: '3', nombre: 'Carlos Gonzalez', edad: 25 },
-    { id: '4', nombre: 'Bjork Guerra', edad: 21 },
-    { id: '5', nombre: 'Luisa Martínez', edad: 28 },
-  ];
+  const [usuarios, setUsuarios] = useState([]);
+  const obtenerUsuarios = async () => {
+    try {
+      const respuesta = await fetch(`${API_URL}/v1/usuarios/`);
+      const datos = await respuesta.json();
+      console.log("Respuesta API: ", datos);
+      setUsuarios(datos.usuarios);
+    } catch (error) {
+      console.log("Error API: ", error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
 
   const renderTarjeta = ({ item }) => (
     <View style={styles.card}>
@@ -22,6 +34,20 @@ export default function ConsultaUsuariosScreen() {
       <Text style={styles.info}>
         Edad: {item.edad} años
       </Text>
+
+      <Pressable
+        style={styles.botonDetalle}
+        onPress={() => router.push({
+          pathname: '/detalles/[id]',
+          params: {
+            id: item.id,
+            nombre: item.nombre,
+            edad: item.edad,
+          },
+        })}
+      >
+        <Text style={styles.textoBoton}>Ver detalle</Text>
+      </Pressable>
 
     </View>
   );
@@ -36,7 +62,7 @@ export default function ConsultaUsuariosScreen() {
 
       <FlatList
         data={usuarios}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         renderItem={renderTarjeta}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 20 }}
@@ -44,7 +70,7 @@ export default function ConsultaUsuariosScreen() {
 
     </SafeAreaView>
   );
-  
+
 }
 
 const styles = StyleSheet.create({
@@ -94,6 +120,20 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 16,
     color: '#4B5563',
+  },
+
+  botonDetalle: {
+    backgroundColor: '#2563EB',
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 12,
+  },
+
+  textoBoton: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 
 });

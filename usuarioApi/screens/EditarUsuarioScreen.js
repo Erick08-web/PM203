@@ -1,79 +1,72 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { API_URL } from '../config/api';
+import { router, useLocalSearchParams } from 'expo-router';
+import { API_URL, AUTH_HEADER } from '../config/api';
 
-export default function App() {
-  const [nombre, setNombre] = useState('');
-  const [edad, setEdad] = useState('');
+export default function EditarUsuarioScreen() {
+  const { id, nombre: nombreInicial, edad: edadInicial } = useLocalSearchParams();
+  const [nombre, setNombre] = useState(String(nombreInicial || ''));
+  const [edad, setEdad] = useState(String(edadInicial || ''));
   const [cargando, setCargando] = useState(false);
-
 
   const mostrarMensaje = (titulo, mensaje) => {
     if (Platform.OS === 'web') {
-      window.alert(`${titulo}\n \n${mensaje}`);
+      window.alert(`${titulo}\n\n${mensaje}`);
     } else {
-      Alert.alert(titulo, mensaje)
-
+      Alert.alert(titulo, mensaje);
     }
   };
 
-  const guardarUsuarios = async () => {
+  const actualizarUsuario = async () => {
     if (nombre.trim() === '' || edad.trim() === '') {
-      mostrarMensaje("Vacios", "Llenar todos los campos")
+      mostrarMensaje('Vacios', 'Llenar todos los campos');
       return;
     }
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
     try {
       setCargando(true);
-      const respuesta = await fetch(`${API_URL}/v1/usuarios/`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nombre: nombre,
-            edad: parseInt(edad),
-          }),
-          signal: controller.signal,
-        });
 
-      clearTimeout(timeoutId);
-      const datos = await respuesta.json();
-      console.log(datos);
+      const respuesta = await fetch(`${API_URL}/v1/usuarios/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: AUTH_HEADER,
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          edad: parseInt(edad),
+        }),
+      });
 
-      mostrarMensaje("Exito", "Usuario agregado");
-
-      setNombre('');
-      setEdad('');
-
-    } catch (error) {
-      clearTimeout(timeoutId);
-      console.log("Error de API", error);
-      if (error.name === 'AbortError') {
-        mostrarMensaje("Error", "Tiempo de espera agotado. Verifica que la API esté corriendo y que estés en la misma red WiFi.");
-      } else {
-        mostrarMensaje("Error", "No fue posible guardar. Verifica tu conexión.");
+      if (!respuesta.ok) {
+        throw new Error('No se pudo actualizar el usuario');
       }
-    }
-    finally {
+
+      const datos = await respuesta.json();
+      console.log('Usuario actualizado: ', datos);
+
+      mostrarMensaje('Exito', 'Usuario actualizado correctamente');
+      router.replace({
+        pathname: '/detalles/[id]',
+        params: {
+          id,
+          nombre,
+          edad,
+        },
+      });
+    } catch (error) {
+      console.log('Error al actualizar: ', error);
+      mostrarMensaje('Error', 'No fue posible actualizar el usuario');
+    } finally {
       setCargando(false);
     }
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.card}>
-
-        <Text style={styles.titulo}>
-          Registro de Usuarios
-        </Text>
+        <Text style={styles.titulo}>Editar Usuario</Text>
 
         <TextInput
           style={styles.input}
@@ -90,20 +83,21 @@ export default function App() {
           onChangeText={setEdad}
         />
 
-        <Pressable style={styles.boton} onPress={guardarUsuarios} disabled={cargando}>
+        <Pressable style={styles.boton} onPress={actualizarUsuario} disabled={cargando}>
           <Text style={styles.textoBoton}>
-            {cargando ? 'Guardando...' : 'Agregar Usuario'}
+            {cargando ? 'Actualizando...' : 'Actualizar Usuario'}
           </Text>
         </Pressable>
 
+        <Pressable style={styles.botonVolver} onPress={() => router.back()}>
+          <Text style={styles.textoVolver}>Cancelar</Text>
+        </Pressable>
       </View>
-
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#F5F7FA',
@@ -154,10 +148,24 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  botonVolver: {
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+  },
+
   textoBoton: {
     color: '#FFFFFF',
     fontSize: 17,
     fontWeight: 'bold',
   },
 
+  textoVolver: {
+    color: '#1F2937',
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
 });

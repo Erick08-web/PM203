@@ -7,7 +7,7 @@ import os
 # -------------------------------------------------------------------------
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://postgres:postgres@postgres:5432/DB_miapi"
+    "postgresql://admin:123456@localhost:5434/DB_miapi"
 )
 
 # -------------------------------------------------------------------------
