@@ -28,7 +28,7 @@ const obtenerUrlApi = () => {
     return `http://${host}:8000`;
   }
 
-  return 'http://192.168.0.109:8000';
+  return 'http://10.16.29.42:8000';
 };
 
 export const API_URL = obtenerUrlApi();
